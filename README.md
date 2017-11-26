@@ -14,15 +14,6 @@ node app.js
 
 
 
-**作者**  LSZH 
-
-**email** 896231585@qq.com 
-
-**time**  2017/11/26 
-
-
-
-
 # 后台 
 
 
@@ -37,3 +28,12 @@ node app.js
 
 **服务器端**  node+express 
 
+
+# 相关信息
+
+
+**作者**  LSZH 
+
+**email** 896231585@qq.com 
+
+**time**  2017/11/26 
