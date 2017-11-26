@@ -5,7 +5,7 @@ Nodejs+MongoDB网站后台增删改查的简单轮子
 
 
 
-# 运行项目
+## 运行项目
 
 npm install
 
@@ -14,7 +14,7 @@ node app.js
 
 
 
-# 后台 
+## 后台 
 
 
 **模板引擎**  jade 
@@ -29,11 +29,11 @@ node app.js
 **服务器端**  node+express 
 
 
-# 相关信息
+## 相关信息
 
 
-**作者**  LSZH 
+**Author**  LSZH 
 
-**email** 896231585@qq.com 
+**Email**   896231585@qq.com 
 
-**time**  2017/11/26 
+**Time**    2017/11/26 
