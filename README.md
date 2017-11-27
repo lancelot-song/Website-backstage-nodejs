@@ -9,6 +9,8 @@ Nodejs+MongoDB网站后台增删改查的简单轮子
 
 npm install
 
+启动 MongoDB
+
 node app.js
 
 [http://localhost:8083/](http://localhost:8083/)  
