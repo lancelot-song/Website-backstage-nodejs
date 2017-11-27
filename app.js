@@ -171,24 +171,63 @@ app.delete('/admin/item/list', function(req, res){
 
 /************************** 用户路由 *****************************/
 
-//用户注册
+//用户注册 
 app.post('/user/signup', function(req, res){
 	var _user = req.body.user;
-
 	User.findOne({ name : _user.name}, function(err, user){
 		if(err) console.log(err);
+
 		if(user){
-			console.log(user);
-			return res.redirect('/');
+			return res.json({
+				status : 0,
+				info : "用户已存在"
+			})
 		}
 		else{
 			var user = new User(_user);
 			user.save(function(err, user){
 				if(err) console.log(err);
-				res.redirect('/admin/userlist');
+
+				return res.json({
+					status : 1,
+					url : '/admin/userlist'
+				})
 			});
 		}
 	})
+});
+
+//用户登录
+app.post('/user/signin', function(req, res){
+	var _user = req.body.user,
+		name = _user.name,
+		pw = _user.password;
+
+	User.findOne({ name : name }, function(err, user){
+		if(err) console.log(err);
+
+		if(!user){
+			return res.json({
+				status : 0,
+				info : "账号或密码错误" 
+			})
+		}
+		user.comparePassword(pw, function(err, isMatch){
+			if(err) console.log(err);
+
+			if(isMatch){
+				return res.json({
+					status : 1
+				})
+			}
+			else{
+				return res.json({
+					status : 0,
+					info : "账号或密码错误"
+				})
+			}
+		})
+	});
 });
 
 //所有用户列表
@@ -204,7 +243,7 @@ app.get('/admin/userlist', function(req, res){
 
 //删除用户
 app.delete('/admin/userlist', function(req, res){
-	var id = req.query.id;
+	var id = req.body.id;
 	if(id){
 		User.remove({_id : id}, function(err, user){
 			if(err){

@@ -3,10 +3,10 @@ $(function(){
 		var id = $(this).attr("data-id"),
 			tr = $(this).parents("tr");
 
-		$.ajax({
+		$.ajax({//以 id=id || {id:id}传参都可以 app.js以res.body.id获取即可
 			type : "DELETE",
-			url : "/admin/userlist?id="+id,
-			data : id
+			url : "/admin/userlist",
+			data : "id=" + id
 		})
 		.done(function(data){
 			if(data.status === 1){

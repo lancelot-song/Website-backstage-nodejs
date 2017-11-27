@@ -40,8 +40,20 @@ UserSchema.pre('save',function(next){
 			next();
 		})
 	})
-})
+});
 
+//处理业务逻辑
+UserSchema.methods = {
+	comparePassword : function(pw, callback){
+		var _pw = this.password;
+		bcrypt.compare(pw, _pw, function(err, isMatch){
+			if(err) return callback(err);
+			return callback(null, isMatch)
+		})
+	}
+}
+
+//扩展功能
 UserSchema.statics = {
 	fetch : function(cb){//取出数据库目前所有数据
 		return this
