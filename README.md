@@ -5,7 +5,7 @@ Nodejs+MongoDB网站后台增删改查的简单轮子
 
 
 
-## 运行项目
+## 运行项目(以管理员执行)
 
 npm install
 
