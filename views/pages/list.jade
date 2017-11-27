@@ -27,7 +27,7 @@ block content
 							td #{moment(item.meta.createdAt).format('MM/DD/YYYY')}
 							td #{item.summary}
 							td: a(target="blank", href="../movie/#{item._id}") 查看
-							td: a(target="blank", href="../admin/update/#{item._id}") 修改
+							td: a(target="blank", href="../admin/item/update/#{item._id}") 修改
 							td
 								button.btn.btn-danger.del(type="button", data-id="#{item._id}") 删除
-	script(src="/js/delete.js")
+	script(src="/js/delItem.js")

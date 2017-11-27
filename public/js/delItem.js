@@ -5,7 +5,7 @@ $(function(){
 
 		$.ajax({
 			type : "DELETE",
-			url : "/admin/list?id="+id,
+			url : "/admin/item/list?id="+id,
 			data : id
 		})
 		.done(function(data){

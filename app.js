@@ -5,12 +5,12 @@ var http = require('http'),
 	_ = require('underscore'),
 	Movie = require('./models/movie.js'),//引入mongoose编译过的数据库模型
 	User = require('./models/user.js'),//引入User数据库模型
-	bodyParser = require('body-parser'),//express依赖 用于转换数据格式 表单提交时用
+	bodyParser = require('body-parser'),//express依赖 用于解析数据格式（JSON/二进制/文本）
 	serveStatic = require('serve-static'),//express依赖 用于指定静态资源加载的路径
 	moment = require('moment'),//用于格式化时间
 	app = express();
 
-//app.locals.moment = moment;
+app.locals.moment = moment;
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://127.0.0.1:27017/imooc',{
   useMongoClient: true
@@ -20,13 +20,14 @@ var port = process.env.PORT || 8083;
 
 app.set('views','./views/pages');//设置views根目录
 app.set('view engine','jade');//设置模板引擎
-app.use(bodyParser.urlencoded({ extended: true }));//对表单数据进行格式化
+app.use(bodyParser.urlencoded({ extended: true }));//设置express中间件，对数据格式文本化
 app.use(serveStatic('public'));
 
 
 app.listen(port);
 console.log("success")
 
+/************************** 前台路由 *****************************/
 
 //首页
 app.get('/', function(req, res){
@@ -55,8 +56,15 @@ app.get('/movie/:id', function(req, res){
 	});
 });
 
+
+/************************** 后台路由 *****************************/
+
+app.get('/admin/item', function(req, res){
+	res.redirect('/admin/item/list');
+})
+
 //后台录入
-app.get('/admin/movie', function(req, res){
+app.get('/admin/item/create', function(req, res){
 	res.render('admin',
 		{
 			title:'后台录入页',
@@ -74,9 +82,8 @@ app.get('/admin/movie', function(req, res){
 	);
 });
 
-
 //接收录入数据请求
-app.post('/admin/movie/new', function(req, res){
+app.post('/admin/item/create/new', function(req, res){
 	console.log("join post")
 	var id = req.body.movie._id;
 	var movieObj = req.body.movie;
@@ -117,7 +124,7 @@ app.post('/admin/movie/new', function(req, res){
 });
 
 //更新数据
-app.get('/admin/update/:id',function(req, res){
+app.get('/admin/item/update/:id',function(req, res){
 	var id = req.params.id;
 	if(id){
 		Movie.findById(id, function(err, movie){
@@ -130,7 +137,39 @@ app.get('/admin/update/:id',function(req, res){
 			})
 		})
 	}
+});
+
+
+//录入数据的列表
+app.get('/admin/item/list', function(req, res){
+	Movie.fetch(function(err,movies){
+		if(err){
+			console.log(err)
+		}
+		res.render('list',{
+			title:'后台列表页',
+			movies : movies
+		})
+	})
+});
+
+//列表删除处理
+app.delete('/admin/item/list', function(req, res){
+	var id = req.query.id;
+	if(id){
+		Movie.remove({_id : id}, function(err, movie){
+			if(err){
+				console.log(err)
+			}
+			else{
+				res.json({status : 1});
+			}
+		})
+	}
 })
+
+
+/************************** 用户路由 *****************************/
 
 //用户注册
 app.post('/user/signup', function(req, res){
@@ -161,32 +200,20 @@ app.get('/admin/userlist', function(req, res){
 			users : users
 		});
 	})
-})
-
-//录入数据的列表
-app.get('/admin/list', function(req, res){
-	Movie.fetch(function(err,movies){
-		if(err){
-			console.log(err)
-		}
-		res.render('list',{
-			title:'后台列表页',
-			movies : movies
-		})
-	})
 });
 
-//列表删除处理
-app.delete('/admin/list', function(req, res){
+//删除用户
+app.delete('/admin/userlist', function(req, res){
 	var id = req.query.id;
 	if(id){
-		Movie.remove({_id : id}, function(err, movie){
+		User.remove({_id : id}, function(err, user){
 			if(err){
 				console.log(err)
 			}
 			else{
+				console.log(user);
 				res.json({status : 1});
 			}
 		})
 	}
-})
+});
