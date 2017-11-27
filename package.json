@@ -17,6 +17,8 @@
     "serve-static": "^1.13.1",
     "underscore": "^1.8.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^3.8.1"
+  },
   "description": ""
 }

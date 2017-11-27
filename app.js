@@ -10,13 +10,13 @@ var http = require('http'),
 	moment = require('moment'),//用于格式化时间
 	app = express();
 
-app.locals.moment = moment;
+//app.locals.moment = moment;
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://127.0.0.1:27017/imooc',{
   useMongoClient: true
 });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8083;
 
 app.set('views','./views/pages');//设置views根目录
 app.set('view engine','jade');//设置模板引擎
