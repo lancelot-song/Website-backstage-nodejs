@@ -50,7 +50,6 @@ console.log("success")
 
 //首页
 app.get('/', function(req, res){
-	console.log( req.session.user );
 	var sessionUser = req.session.user;
 	app.locals.user = sessionUser;
 	Movie.fetch(function(err, movies){
@@ -106,7 +105,6 @@ app.get('/admin/item/create', function(req, res){
 
 //接收录入数据请求
 app.post('/admin/item/create/new', function(req, res){
-	console.log("join post")
 	var id = req.body.movie._id;
 	var movieObj = req.body.movie;
 	var _movie;
@@ -252,6 +250,12 @@ app.post('/user/signin', function(req, res){
 			}
 		})
 	});
+});
+
+//用户退出
+app.post('/user/signout', function(req, res){
+	app.locals.user = req.session.user = undefined;
+	res.json({ status : 1 });
 });
 
 //所有用户列表
