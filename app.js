@@ -1,7 +1,13 @@
 var http = require('http'),
 	path = require('path'),
 	express = require('express'),
+
+	session = require('express-session'),
+	cookieParser = require('cookie-parser'),
+	MongoStore = require('connect-mongo')(session),
+
 	mongoose = require('mongoose'),
+
 	_ = require('underscore'),
 	Movie = require('./models/movie.js'),//引入mongoose编译过的数据库模型
 	User = require('./models/user.js'),//引入User数据库模型
@@ -10,9 +16,12 @@ var http = require('http'),
 	moment = require('moment'),//用于格式化时间
 	app = express();
 
+
+var dburl = 'mongodb://127.0.0.1:27017/imooc';
+
 app.locals.moment = moment;
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://127.0.0.1:27017/imooc',{
+mongoose.connect(dburl,{
   useMongoClient: true
 });
 
@@ -22,6 +31,16 @@ app.set('views','./views/pages');//设置views根目录
 app.set('view engine','jade');//设置模板引擎
 app.use(bodyParser.urlencoded({ extended: true }));//设置express中间件，对数据格式文本化
 app.use(serveStatic('public'));
+app.use(cookieParser());
+app.use(session({
+	secret : 'lszh secret',
+    resave: false,
+    saveUninitialized: true,
+	store : new MongoStore({
+		url : dburl,
+		collection : 'sessions'
+	})
+}))
 
 
 app.listen(port);
@@ -31,6 +50,9 @@ console.log("success")
 
 //首页
 app.get('/', function(req, res){
+	console.log( req.session.user );
+	var sessionUser = req.session.user;
+	app.locals.user = sessionUser;
 	Movie.fetch(function(err, movies){
 		if(err){
 			console.log(err)
@@ -216,9 +238,11 @@ app.post('/user/signin', function(req, res){
 			if(err) console.log(err);
 
 			if(isMatch){
+				req.session.user = user;
 				return res.json({
-					status : 1
-				})
+					status : 1,
+					url : "/"
+				});
 			}
 			else{
 				return res.json({

@@ -28,7 +28,7 @@ $(function(){
 		})
 		.done(function(data){
 			if(data.status){
-				console.log("用户名密码正确");
+				window.location.href = data.url;
 			}else{
 				console.log(data.info)
 			}
