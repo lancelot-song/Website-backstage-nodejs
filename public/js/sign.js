@@ -36,19 +36,4 @@ $(function(){
 		return false;
 	});
 
-	//用户退出逻辑
-	$("#signout").submit(function(){
-		var $this = $(this);
-		$.ajax({
-			type : "POST",
-			url  : $this.attr("action")
-		})
-		.done(function(data){
-			if(data.status){
-				window.location.reload();
-			}
-		})
-		return false;
-	});
-
 })

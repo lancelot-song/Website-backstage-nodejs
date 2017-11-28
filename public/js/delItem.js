@@ -5,8 +5,8 @@ $(function(){
 
 		$.ajax({
 			type : "DELETE",
-			url : "/admin/item/list?id="+id,
-			data : id
+			url : "/admin/movie/del",
+			data : { id : id }
 		})
 		.done(function(data){
 			if(data.status === 1){

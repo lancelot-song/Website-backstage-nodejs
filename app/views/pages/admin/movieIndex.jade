@@ -1,7 +1,10 @@
-extends ../layout
+extends ../../layout
 
 block content
 	.container
+		.row
+			a.btn.btn-default(href="/admin/movie/create") 新增
+		br
 		.row
 			table.table.table-hover.table-bordered
 				thead
@@ -26,8 +29,8 @@ block content
 							td #{item.year}
 							td #{moment(item.meta.createdAt).format('MM/DD/YYYY')}
 							td #{item.summary}
-							td: a(target="blank", href="../movie/#{item._id}") 查看
-							td: a(target="blank", href="../admin/item/update/#{item._id}") 修改
+							td: a(target="blank", href="/movie/#{item._id}") 查看
+							td: a(target="blank", href="/admin/movie/update/#{item._id}") 修改
 							td
 								button.btn.btn-danger.del(type="button", data-id="#{item._id}") 删除
 	script(src="/js/delItem.js")

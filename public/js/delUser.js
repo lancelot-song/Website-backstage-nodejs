@@ -5,8 +5,8 @@ $(function(){
 
 		$.ajax({//以 id=id || {id:id}传参都可以 app.js以res.body.id获取即可
 			type : "DELETE",
-			url : "/admin/userlist",
-			data : "id=" + id
+			url : "/user/del",
+			data : { id : id }
 		})
 		.done(function(data){
 			if(data.status === 1){
