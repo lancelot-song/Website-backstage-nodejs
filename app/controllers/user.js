@@ -33,7 +33,7 @@ exports.signin = function(req, res){
 	User.findOne({ name : name }, function(err, user){
 		if(err) console.log(err);
 
-		if(!user){
+		if(user.name){
 			return res.json({
 				status : 0,
 				info : "账号或密码错误" 
