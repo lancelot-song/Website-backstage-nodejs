@@ -1,7 +1,7 @@
 $(function(){
 
 	//用户注册逻辑
-	$("#signup").submit(function(){
+	$("#signup,#goSignup").submit(function(){
 		var $this = $(this);
 		$.ajax({
 			type : "POST",
@@ -19,7 +19,7 @@ $(function(){
 	});
 
 	//用户登录逻辑
-	$("#signin").submit(function(){
+	$("#signin,#goSignin").submit(function(){
 		var $this = $(this);
 		$.ajax({
 			type : "POST",

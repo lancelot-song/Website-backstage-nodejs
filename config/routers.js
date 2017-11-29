@@ -21,15 +21,17 @@ module.exports = function(app){
 	app.post('/movie/score', Movie.score);
 
 	//movie 后台
-	app.get('/admin/movie', Movie.index);
-	app.get('/admin/movie/create', Movie.create);
-	app.post('/admin/movie/create/add', Movie.createAdd );
-	app.delete('/admin/movie/del', Movie.del);
+	app.get('/admin/movie', User.signinRequired, User.adminRequired, Movie.index);
+	app.get('/admin/movie/create', User.signinRequired, User.adminRequired, Movie.create);
+	app.post('/admin/movie/create/add', User.signinRequired, User.adminRequired, Movie.createAdd );
+	app.delete('/admin/movie/del', User.signinRequired, User.adminRequired, Movie.del);
 
 	// user 
+	app.get('/signup', User.goSignup);
+	app.get('/signin', User.goSignin);
 	app.post('/user/signup', User.signup);
 	app.post('/user/signin', User.signin);
 	app.get('/user/signout', User.signout);
-	app.get('/user/list', User.list);
-	app.delete('/user/del', User.del);
+	app.get('/user/list', User.signinRequired, User.adminRequired, User.list);
+	app.delete('/user/del', User.signinRequired, User.adminRequired, User.del);
 }

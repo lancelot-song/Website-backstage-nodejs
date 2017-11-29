@@ -1,5 +1,17 @@
 var User = require('../models/user.js');//引入User数据库模型
 
+exports.goSignup = function(req, res){
+	res.render('signup',{
+		title :'用户注册'
+	});
+}
+
+exports.goSignin = function(req, res){
+	res.render('signin',{
+		title :'用户登录'
+	});
+}
+
 exports.signup = function(req, res){
 	var _user = req.body.user;
 	User.findOne({ name : _user.name}, function(err, user){
@@ -33,7 +45,7 @@ exports.signin = function(req, res){
 	User.findOne({ name : name }, function(err, user){
 		if(err) console.log(err);
 
-		if(user.name){
+		if(!user){
 			return res.json({
 				status : 0,
 				info : "账号或密码错误" 
@@ -87,4 +99,24 @@ exports.del = function(req, res){
 			}
 		})
 	}
+}
+
+exports.signinRequired = function(req, res, next){
+	var user = req.session.user;
+
+	if(!user){
+		return res.redirect('/signin')
+	}
+
+	next();
+}
+
+exports.adminRequired = function(req, res, next){
+	var user = req.session.user;
+
+	if(user.role === undefined || user.role < 10){
+		return res.redirect('/')
+	}
+
+	next();
 }
