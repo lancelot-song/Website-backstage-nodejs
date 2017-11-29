@@ -111,3 +111,23 @@ exports.del = function(req, res){
 		})
 	}
 }
+
+exports.score = function(req, res){
+	var id = req.body.id,
+		score = { score : req.body.score },
+		_movie;
+	if(id){
+		Movie.findById(id, function(err, movie){
+			if(err){
+				console.log(err)
+			}
+			_movie = _.extend(movie, score);
+			_movie.save(function(err, movie){
+				if(err) {
+					console.log(err)
+				}
+				res.json({ status : 1 });
+			});
+		})
+	}
+}

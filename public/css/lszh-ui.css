@@ -1,0 +1,15 @@
+.ui-score{
+	margin-top:4px;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	background: url('../images/star.png') 0px -150px no-repeat;
+	cursor:pointer;
+}
+.ui-score.active{
+	background: url('../images/star.png') 0px -120px
+}
+.ui-score-txt{
+	margin-left: 6px;
+	vertical-align: text-bottom;
+}

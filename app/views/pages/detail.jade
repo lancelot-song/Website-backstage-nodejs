@@ -19,3 +19,11 @@ block content
 					dd #{movie.year}
 					dt 简介
 					dd #{movie.summary}
+					dt 评分
+					dd(id="scoreGroup", data-id="#{movie._id}")
+						span(class="ui-score-array", data-toggle="popover",  data-placement="bottom", data-content="评分成功！")
+							each val, score in ['很差','较差','还行','推荐','力荐']
+								a(class="ui-score", data-txt="#{val}", href="javascript:void(0);")
+						span(class="ui-score-txt")
+						input(type="hidden", value="#{movie.score}" id="scoreData")
+	script(src="/js/score.js")

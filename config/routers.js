@@ -18,12 +18,12 @@ module.exports = function(app){
 
 	//movie 用户浏览
 	app.get('/movie/:id', Movie.detail);
+	app.post('/movie/score', Movie.score);
 
 	//movie 后台
 	app.get('/admin/movie', Movie.index);
 	app.get('/admin/movie/create', Movie.create);
 	app.post('/admin/movie/create/add', Movie.createAdd );
-	app.get('/admin/movie/update/:id', Movie.update);
 	app.delete('/admin/movie/del', Movie.del);
 
 	// user 
