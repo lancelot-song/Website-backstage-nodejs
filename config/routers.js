@@ -2,7 +2,8 @@ var moment = require('moment');//格式化时间
 
 var Index = require('../app/controllers/index'),
 	User = require('../app/controllers/user'),
-	Movie = require('../app/controllers/movie');
+	Movie = require('../app/controllers/movie'),
+	Comment = require('../app/controllers/comment');
 
 module.exports = function(app){
 
@@ -19,6 +20,7 @@ module.exports = function(app){
 	//movie 用户浏览
 	app.get('/movie/:id', Movie.detail);
 	app.post('/movie/score', Movie.score);
+	app.post('/movie/comment', Comment.save);
 
 	//movie 后台
 	app.get('/admin/movie', User.signinRequired, User.adminRequired, Movie.index);

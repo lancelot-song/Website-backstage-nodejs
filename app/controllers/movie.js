@@ -1,5 +1,6 @@
 var _ = require('underscore'),//类似于jquery的方法扩展库 如extend()
-	Movie = require('../models/movie.js');//引入mongoose编译过的数据库模型
+	Movie = require('../models/movie.js'),
+	Comment = require('../models/comment.js');
 
 exports.index = function(req, res){
 	Movie.fetch(function(err,movies){
@@ -19,10 +20,18 @@ exports.detail = function(req, res){
 		if(err){
 			console.log(err)
 		}
-		res.render('detail',{
-			title :'详情页',
-			movie : movie
-		});
+		Comment
+			.find({ movie : movie })
+			.populate('from', 'name')
+			.exec(function(err, comments){
+				console.log("comments:")
+				console.log(comments)
+				res.render('detail',{
+					title :'详情页',
+					movie : movie,
+					comments : comments
+				});
+			})
 	});
 }
 
