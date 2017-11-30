@@ -18,12 +18,16 @@ block content
 										h4.media-heading #{item.from.name}
 										p #{item.content}
 
-						form(method="post", action="/movie/comment", id="commentForm", data-username="#{user.name}")
-							input(type="hidden", name="comment[movie]", value="#{movie._id}")
-							input(type="hidden", name="comment[from]", value="#{user._id}")
-							.form-group
-								textarea.form-control(name="comment[content]", row=4)
-							button.btn.btn-primary(type="submit") 提交
+						if user
+							form(method="post", action="/movie/comment", id="commentForm", data-username="#{user.name}")
+								input(type="hidden", name="comment[movie]", value="#{movie._id}")
+								input(type="hidden", name="comment[from]", value="#{user._id}")
+								.form-group
+									textarea.form-control(name="comment[content]", row=4)
+								button.btn.btn-primary(type="submit") 提交
+						else
+							hr
+							h5 发表评论，请先登录
 				br
 				br
 				br
