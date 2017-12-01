@@ -43,13 +43,14 @@ q:before,q:after {
 content;
 }
 abbr,acronym{border:0;}
-html{background-color:#f5f4f4;}
 p{
     word-wrap:break-word;
 }
+body{padding:0px!important;}
 a:hover{ text-decoration: none }
 /* 主内容区 */
 .ui-layout{
+	margin-bottom: 16px;
 	position: relative;
 	width: 1380px;
 	overflow: hidden;
@@ -57,7 +58,7 @@ a:hover{ text-decoration: none }
 }
 /* header */
 .ui-header{
-	margin-bottom: 10px;
+	margin-bottom: 16px;
 	width: 100%;
 	background-color: #FFD100;
 }
@@ -81,8 +82,11 @@ a:hover{ text-decoration: none }
 			height: 40px;
 			display: block;
 			overflow: hidden;
-			text-indent: -9999px;
-			background: url('../images/logo.png');
+			text-indent: 0px;
+			line-height: 40px;
+			text-align: left;
+/* 			text-align: -9999px;
+			background: url('../images/logo.png'); */
 		}
 	.ui-nav{
 		display: inline-block;
@@ -124,6 +128,7 @@ a:hover{ text-decoration: none }
 			font-size: 14px;
 			text-align: center;
 			color: #000;
+			outline: none;
 		}
 /* slider */
 .ui-slider{
@@ -190,14 +195,61 @@ a:hover{ text-decoration: none }
 		-moz-background-size: 100% 100%;
 		     background-size: 100% 100%;
 	}
-
+/* .ui-hot-list{
+	margin-right: -20px;
+	position: relative;
+	overflow: hidden;
+	height: 210px;
+}
+	.ui-hot-list li{
+		float: left;
+		margin-right: 20px;
+		width: 260px;
+		height: 100%;
+		border-radius:4px;
+		overflow: hidden;
+	}
+	.ui-hot-list img{
+		width: 260px;
+		height: 100%;
+	} */
+.ui-hot-list{
+	margin-right: -20px;
+	position: relative;
+	overflow: hidden;
+}
+	.ui-hot-list li{
+		float: left;
+		margin-right: 20px;
+		width: 190px;
+		height: 100%;
+	}
+		.ui-hot-list li a{
+			position: relative;
+			display: block;
+			border-radius:4px;
+			overflow: hidden;
+		}
+		.ui-hot-list img{
+			width: 190px;
+		}
+		.ui-hot-list .ui-title{
+			position: absolute;
+			left: 0px;bottom: 0px;
+			width: 100%;
+			line-height: 30px;
+			font-size: 14px;
+			color: #fff;
+			background-color: rgba(0, 0, 0, .7);
+			z-index: 20;
+		}
 
 /* 评分 */
 .ui-score{
 	margin-top:4px;
 	display: inline-block;
-	width: 16px;
-	height: 16px;
+	width: 15px;
+	height: 15px;
 	background: url('../images/star.png') 0px -150px no-repeat;
 	cursor:pointer;
 }
@@ -207,4 +259,67 @@ a:hover{ text-decoration: none }
 .ui-score-txt{
 	margin-left: 6px;
 	vertical-align: text-bottom;
+}
+.ui-score-result{
+	position: relative;
+	margin: 6px auto 0px;
+	padding: 0px 28px 0px 38px;
+	width: 75px;
+	height: 15px;
+	background: url('../images/star.png') 38px -150px no-repeat;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+.ui-score-result::before{
+	content: "评分：";
+	position: absolute;
+	top: 0px; left: 0px;
+	text-indent: 
+}
+.ui-score-result .ui-score-txt{
+	position: absolute;
+	top:0px; left: 112px;
+}
+.ui-score-result.ui-score-10{
+	background-position: 38px 0px;
+}
+.ui-score-result.ui-score-9{
+	background-position: 38px -15px;
+}
+.ui-score-result.ui-score-8{
+	background-position: 38px -30px;
+}
+.ui-score-result.ui-score-7{
+	background-position: 38px -45px;
+}
+.ui-score-result.ui-score-6{
+	background-position: 38px -60px;
+}
+.ui-score-result.ui-score-5{
+	background-position: 38px -75px;
+}
+.ui-score-result.ui-score-4{
+	background-position: 38px -90px;
+}
+.ui-score-result.ui-score-53{
+	background-position: 38px -105px;
+}
+.ui-score-result.ui-score-2{
+	background-position: 38px -120px;
+}
+.ui-score-result.ui-score-1{
+	background-position: 38px -135px;
+}
+
+
+@media screen and (max-width:1600px){
+	.ui-layout{
+		width: 1130px;
+	}
+	.ui-slider-scroll li{
+		float: left;
+		width: 1130px;
+		height: 350px;
+	}
 }

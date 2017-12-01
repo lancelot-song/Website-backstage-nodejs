@@ -85,6 +85,7 @@ var LszhSlider = function($slider){
 		maxLen : 0,
 		maxWidth : 0,
 		isTranslate : false,
+		switching : false,
 		currentIndex : 0
 	}
 
@@ -164,6 +165,9 @@ LszhSlider.prototype = {
     prev : function(){
     	var self = this,
     		config = self.config;
+
+    	if(config.switching) return false;
+
     	if( config.currentIndex > 0 ){
     		config.currentIndex--;
     		self.switch();
@@ -179,25 +183,32 @@ LszhSlider.prototype = {
 	    			.css({
 		    			transform : "translate3d( "+ -setLeft +"px, 0px, 0px)"
 		    		});
-			    setTimeout(function(){
+
+	    		setTimeout(function(){
 				    config.$scroll.addClass("ui-translate");
-				},0)
-	    	}
+		    		config.currentIndex = currentIndex - 1;
+		    		self.switch();
+	    		},0);
+
+		    }
 	    	else{
 	    		config.$scroll.css({
 	    			left : -setLeft
 	    		})
+	    		config.currentIndex = currentIndex - 1;
+	    		self.switch();
 	    	}
-    		config.currentIndex = currentIndex - 1;
-    		self.switch();
     	}
+    	config.switching = true;
     },
 
     next : function(){
     	var self = this,
     		config = self.config,
-    		length = config.$li.length;//copy了最后一个 要-1
+    		length = config.$li.length;
+    	if(config.switching) return false;
     	if( config.currentIndex < length ){
+    		config.switching = true;
     		config.currentIndex++;
     		self.switch();
     	}
@@ -214,6 +225,7 @@ LszhSlider.prototype = {
     		config.$scroll.css({
     			transform : "translate3d( "+ -setLeft +"px, 0px, 0px)"
     		});
+    		/* 此处的 self.switchEnd() 在 cssTranslateEnd 方法中监听调用 这里不做配置 */
     	}
     	else{
 	    	config.$scroll.animate({
@@ -247,9 +259,11 @@ LszhSlider.prototype = {
 		    		left : 0
 		    	});
     		}
-			config.currentIndex = 0;
+
+			config.currentIndex = current = 0;
 		}
-		config.$li.removeClass("current").eq(current).addClass("current")
+		config.$li.removeClass("current").eq(current).addClass("current");
+    	config.switching = false;
     },
 
     cssTranslateEnd : function(){

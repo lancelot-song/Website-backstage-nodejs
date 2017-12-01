@@ -25,6 +25,7 @@ module.exports = function(app){
 	//movie 后台
 	app.get('/admin/movie', User.signinRequired, User.adminRequired, Movie.index);
 	app.get('/admin/movie/create', User.signinRequired, User.adminRequired, Movie.create);
+	app.get('/admin/movie/update/:id', User.signinRequired, User.adminRequired, Movie.update);
 	app.post('/admin/movie/create/add', User.signinRequired, User.adminRequired, Movie.createAdd );
 	app.delete('/admin/movie/del', User.signinRequired, User.adminRequired, Movie.del);
 
