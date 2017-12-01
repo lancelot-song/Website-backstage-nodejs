@@ -55,5 +55,6 @@ block content
 								a(class="ui-score", data-txt="#{val}", href="javascript:void(0);")
 						span(class="ui-score-txt")
 						input(type="hidden", value="#{movie.score}" id="scoreData")
-	script(src="/js/score.js")
 	script(src="/js/comment.js")
+	script(type='text/javascript').
+		new LszhScore( $("#scoreGroup") );
